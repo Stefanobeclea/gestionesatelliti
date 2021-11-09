@@ -2,10 +2,13 @@ package it.prova.gestionesatelliti.web.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,7 +19,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import it.prova.gestionesatelliti.model.Satellite;
 import it.prova.gestionesatelliti.service.SatelliteService;
-import it.prova.gestionesatelliti.utility.UtilityForm;
 
 @Controller
 @RequestMapping(value = "/satellite")
@@ -53,16 +55,11 @@ public class SatelliteController {
 	}
 
 	@PostMapping("/save")
-	public String save(@ModelAttribute("insert_satellite_attr") Satellite satellite, ModelMap model,
-			RedirectAttributes redirectAttrs) {
+	public String save(@Valid @ModelAttribute("insert_satellite_attr") Satellite satellite, ModelMap model,
+			RedirectAttributes redirectAttrs, BindingResult result) {
 
-		// ATTENZIONE!!!! la validazione con spring viene fatta in un modo più elegante
-		// questa è fatta a mano e per ora prendiamola per buona
-		if (!UtilityForm.validateBean(satellite)) {
-			model.addAttribute("errorMessage", "Attenzione! Sono presenti errori di validazione");
+		if (result.hasErrors())
 			return "satellite/insert";
-		}
-		// ======================================================================
 
 		satelliteService.inserisciNuovo(satellite);
 
@@ -93,7 +90,10 @@ public class SatelliteController {
 	}
 	
 	@GetMapping("/formedit/{idSatellite}")
-	public String formedit(@PathVariable(required = true) Long idSatellite, Model model) {
+	public String formedit(@Valid @PathVariable(required = true) Long idSatellite, Model model, BindingResult result) {
+		
+		if (result.hasErrors())
+			return "satellite/edit";
 		
 		model.addAttribute("edit_satellite_attr",satelliteService.caricaSingoloElemento(idSatellite));
 		return "satellite/edit";
