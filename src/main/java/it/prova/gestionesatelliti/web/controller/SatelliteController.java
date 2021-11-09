@@ -18,6 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import it.prova.gestionesatelliti.model.Satellite;
+import it.prova.gestionesatelliti.model.StatoSatellite;
 import it.prova.gestionesatelliti.service.SatelliteService;
 
 @Controller
@@ -112,6 +113,14 @@ public class SatelliteController {
 	public String ricerca1(Model model) {
 		
 		List<Satellite> results = satelliteService.cercaTuttiLanciatiDaPiuDiUnAnnoENonDisattivati();
+		model.addAttribute("satellite_list_attribute", results);
+		return "satellite/list";
+	}
+	
+	@GetMapping("/ricerca2")
+	public String ricerca2(Model model) {
+		
+		List<Satellite> results = satelliteService.trovaTuttiByStatoLikeAndDataRientroNotNull(StatoSatellite.DISATTIVATO);
 		model.addAttribute("satellite_list_attribute", results);
 		return "satellite/list";
 	}

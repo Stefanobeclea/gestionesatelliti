@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import it.prova.gestionesatelliti.model.Satellite;
+import it.prova.gestionesatelliti.model.StatoSatellite;
 import it.prova.gestionesatelliti.repository.SatelliteRepository;
 
 @Service
@@ -100,5 +101,10 @@ public class SatelliteServiceImpl implements SatelliteService{
 	@Transactional(readOnly = true)
 	public List<Satellite> cercaTuttiLanciatiDaPiuDiUnAnnoENonDisattivati() {
 		return repository.findAllByLanciatiDaPiuDiUnAnnoENonDisattivati();		
+	}
+
+	@Override
+	public List<Satellite> trovaTuttiByStatoLikeAndDataRientroIsNull(StatoSatellite statoSatellite) {
+		return repository.findAllByStatoLikeAndDataRientroIsNull(statoSatellite);
 	}
 }
