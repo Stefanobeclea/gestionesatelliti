@@ -17,6 +17,12 @@
 			<!-- Begin page content -->
 			<main class="flex-shrink-0">
 			  <div class="container">
+			  		<spring:hasBindErrors  name="insert_impiegato_attr">
+						<%-- alert errori --%>
+						<div class="alert alert-danger " role="alert">
+							Attenzione!! Sono presenti errori di validazione
+						</div>
+					</spring:hasBindErrors>
 			  
 			  		<div class="alert alert-danger alert-dismissible fade show ${errorMessage==null?'d-none':'' }" role="alert">
 					  ${errorMessage}
@@ -40,31 +46,44 @@
 							<h6 class="card-title">I campi con <span class="text-danger">*</span> sono obbligatori</h6>
 		
 		
-							<form method="post" action="${pageContext.request.contextPath}/satellite/save" class="row g-3" novalidate="novalidate">
-							
+							<form:form modelAttribute="insert_satellite_attr" method="post" action="${pageContext.request.contextPath}/satellitesave" class="row g-3" novalidate="novalidate">
 							
 								<div class="col-md-6">
 									<label for="denominazione" class="form-label">Denominazione <span class="text-danger">*</span></label>
-									<input type="text" name="denominazione" id="denominazione" class="form-control" placeholder="Inserire denominazione" value="${insert_satellite_attr.denominazione }" required>
+									<spring:bind path="denominazione">
+										<input type="text" name="denominazione" id="denominazione" class="form-control ${status.error ? 'is-invalid' : ''}" placeholder="Inserire denominazione" value="${insert_satellite_attr.denominazione }" required>
+									</spring:bind>
+									<form:errors  path="denominazione" cssClass="error_field" />
 								</div>
 								
 								<div class="col-md-6">
 									<label for="codice" class="form-label">Codice <span class="text-danger">*</span></label>
-									<input type="text" name="codice" id="codice" class="form-control" placeholder="Inserire il codice" value="${insert_satellite_attr.codice }" required>
+									<spring:bind path="codice">
+										<input type="text" name="codice" id="codice" class="form-control ${status.error ? 'is-invalid' : ''}" placeholder="Inserire codice" value="${insert_satellite_attr.codice }" required>
+									</spring:bind>
+									<form:errors  path="codice" cssClass="error_field" />
 								</div>
 						
 								<fmt:formatDate pattern='yyyy-MM-dd' var="parsedDate" type='date' value='${insert_satellite_attr.dataLancio}' />
 								<div class="col-md-3">
 									<label for="dataLancio" class="form-label">Data di Lancio <span class="text-danger">*</span></label>
-                        			<input class="form-control" id="dataLancio" type="date" placeholder="dd/MM/yy"
-                            			title="formato : gg/mm/aaaa"  name="dataLancio" required value="${parsedDate}" >
+									<spring:bind path="dataLancio">
+	                        		<input class="form-control ${status.error ? 'is-invalid' : ''}" id="dataLancio" type="date" placeholder="dd/MM/yy"
+	                            		title="formato : gg/mm/aaaa"  name="dataLancio" required 
+	                            		value="${parsedDate}" >
+		                            </spring:bind>
+	                            	<form:errors  path="dataDiNascita" cssClass="error_field" />
 								</div>
 								
 								<fmt:formatDate pattern='yyyy-MM-dd' var="parsedDate" type='date' value='${insert_satellite_attr.dataRientro}' />
 								<div class="col-md-3">
 									<label for="dataRientro" class="form-label">Data di Rientro <span class="text-danger">*</span></label>
-                        			<input class="form-control" id="dataRientro" type="date" placeholder="dd/MM/yy"
-                            			title="formato : gg/mm/aaaa"  name="dataRientro" required value="${parsedDate}" >
+                        			<spring:bind path="dataRientro">
+	                        		<input class="form-control ${status.error ? 'is-invalid' : ''}" id="dataRientro" type="date" placeholder="dd/MM/yy"
+	                            		title="formato : gg/mm/aaaa"  name="dataRientro" required 
+	                            		value="${parsedDate}" >
+		                            </spring:bind>
+	                            	<form:errors  path="dataRientro" cssClass="error_field" />
 								</div>
 								
 								<div class="col-md-3">

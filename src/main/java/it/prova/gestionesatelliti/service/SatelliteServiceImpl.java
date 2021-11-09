@@ -1,9 +1,11 @@
 package it.prova.gestionesatelliti.service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -100,11 +102,22 @@ public class SatelliteServiceImpl implements SatelliteService{
 	@Override
 	@Transactional(readOnly = true)
 	public List<Satellite> cercaTuttiLanciatiDaPiuDiUnAnnoENonDisattivati() {
-		return repository.findAllByLanciatiDaPiuDiUnAnnoENonDisattivati();		
+		Date dataPerQuery = new Date();
+		dataPerQuery.setYear(dataPerQuery.getYear()-2);
+		return repository.findAllByLanciatiDaPiuDiUnAnnoENonDisattivati(dataPerQuery);		
 	}
 
 	@Override
-	public List<Satellite> trovaTuttiByStatoLikeAndDataRientroIsNull(StatoSatellite statoSatellite) {
-		return repository.findAllByStatoLikeAndDataRientroIsNull(statoSatellite);
+	public List<Satellite> trovaTuttiByStatoLikeAndDataRientroIsNull() {
+		return repository.findAllByStatoLikeAndDataRientroIsNull(StatoSatellite.DISATTIVATO);
+	}
+
+	@Override
+	public List<Satellite> trovaTuttoByStatoLike() {
+		Date date = new Date();
+		date.setYear(date.getYear()-10);
+		
+		return repository.findAllByDataLancioLessThanAndStatoLike(date, StatoSatellite.FISSO);
+		
 	}
 }

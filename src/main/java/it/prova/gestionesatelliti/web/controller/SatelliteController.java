@@ -120,7 +120,15 @@ public class SatelliteController {
 	@GetMapping("/ricerca2")
 	public String ricerca2(Model model) {
 		
-		List<Satellite> results = satelliteService.trovaTuttiByStatoLikeAndDataRientroNotNull(StatoSatellite.DISATTIVATO);
+		List<Satellite> results = satelliteService.trovaTuttiByStatoLikeAndDataRientroIsNull();
+		model.addAttribute("satellite_list_attribute", results);
+		return "satellite/list";
+	}
+	
+	@GetMapping("/ricerca3")
+	public String ricerca3(Model model) {
+		
+		List<Satellite> results = satelliteService.trovaTuttoByStatoLike();
 		model.addAttribute("satellite_list_attribute", results);
 		return "satellite/list";
 	}

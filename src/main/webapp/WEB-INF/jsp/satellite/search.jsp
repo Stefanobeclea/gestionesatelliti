@@ -86,7 +86,9 @@
 									<a class="btn btn-outline-primary ml-2"
 									href="${pageContext.request.contextPath}/satellite/ricerca2">Ricerca</a>
 								</li>
-								<li>terzo elemento</li>
+								<li>Ricerca sattelliti disattivati ma ancora non rientrati.
+									<a class="btn btn-outline-primary ml-2"
+									href="${pageContext.request.contextPath}/satellite/ricerca3">Ricerca</a></li>
 							</ul>
 						</div>
 				    
