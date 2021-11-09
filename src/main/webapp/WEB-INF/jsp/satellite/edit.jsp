@@ -1,4 +1,5 @@
 <%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!doctype html>
 <html lang="it" class="h-100" >
 	 <head>
@@ -73,7 +74,9 @@
 								    	<option value="" selected> - Selezionare - </option>
 								    	<option value="IN_MOVIMENTO" ${edit_satellite_attr.stato == 'IN_MOVIMENTO'?'selected':''}>IN_MOVIMENTO</option>
 								      	<option value="FISSO" ${edit_satellite_attr.stato == 'FISSO'?'selected':''}>FISSO</option>
-								      	<option value="DISATTIVATO" ${edit_satellite_attr.stato == '"DISATTIVATO"'?'selected':''}>"DISATTIVATO"</option>
+								      	<c:if test="${edit_satellite_attr.dataRientro == null}">
+								      		<option value="DISATTIVATO" ${edit_satellite_attr.stato == 'DISATTIVATO'?'selected':''}>DISATTIVATO</option>
+								      	</c:if>
 								    </select>
 								</div>
 								

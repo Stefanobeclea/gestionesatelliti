@@ -90,17 +90,19 @@ public class SatelliteController {
 	}
 	
 	@GetMapping("/formedit/{idSatellite}")
-	public String formedit(@Valid @PathVariable(required = true) Long idSatellite, Model model, BindingResult result) {
-		
-		if (result.hasErrors())
-			return "satellite/edit";
+	public String formedit(@PathVariable(required = true) Long idSatellite, Model model) {
 		
 		model.addAttribute("edit_satellite_attr",satelliteService.caricaSingoloElemento(idSatellite));
 		return "satellite/edit";
 	}
 	
 	@PostMapping("/edit")
-	public String edit(@ModelAttribute("insert_satellite_attr") Satellite satellite, Model model, RedirectAttributes redirectAttrs) {
+	public String edit(@Valid @ModelAttribute("insert_satellite_attr") Satellite satellite, Model model, RedirectAttributes redirectAttrs
+			, BindingResult result) {
+		
+		if (result.hasErrors())
+			return "satellite/formedit";
+		
 		satelliteService.aggiorna(satellite);	
 		redirectAttrs.addFlashAttribute("successMessage", "Operazione eseguita correttamente");
 		return "redirect:/satellite";
