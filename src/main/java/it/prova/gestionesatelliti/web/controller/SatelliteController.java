@@ -107,4 +107,12 @@ public class SatelliteController {
 		redirectAttrs.addFlashAttribute("successMessage", "Operazione eseguita correttamente");
 		return "redirect:/satellite";
 	}
+	
+	@GetMapping("/ricerca1")
+	public String ricerca1(Model model) {
+		
+		List<Satellite> results = satelliteService.cercaTuttiLanciatiDaPiuDiUnAnnoENonDisattivati();
+		model.addAttribute("satellite_list_attribute", results);
+		return "satellite/list";
+	}
 }

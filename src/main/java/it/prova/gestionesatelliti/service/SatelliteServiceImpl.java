@@ -95,4 +95,10 @@ public class SatelliteServiceImpl implements SatelliteService{
 
 		return typedQuery.getResultList();
 	}
+
+	@Override
+	@Transactional(readOnly = true)
+	public List<Satellite> cercaTuttiLanciatiDaPiuDiUnAnnoENonDisattivati() {
+		return repository.findAllByLanciatiDaPiuDiUnAnnoENonDisattivati();		
+	}
 }

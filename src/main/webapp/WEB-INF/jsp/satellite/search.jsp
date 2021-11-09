@@ -74,11 +74,23 @@
 							</div>
 		
 						</form>
-  
+						
+  						<div>
+							<ul>
+								<li>Ricerca sattelliti lanciati da più di due anni che non sono disattivati.
+									<a class="btn btn-outline-primary ml-2"
+									href="${pageContext.request.contextPath}/satellite/ricerca1">Ricerca</a>
+								</li>
+
+								<li>secondo elemento</li>
+								<li>terzo elemento</li>
+							</ul>
+						</div>
 				    
 				    
 					<!-- end card-body -->			   
 				    </div>
+				    
 				<!-- end card -->
 				</div>		
 					  
