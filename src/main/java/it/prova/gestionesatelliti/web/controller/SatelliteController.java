@@ -56,8 +56,8 @@ public class SatelliteController {
 	}
 
 	@PostMapping("/save")
-	public String save(@Valid @ModelAttribute("insert_satellite_attr") Satellite satellite, ModelMap model,
-			RedirectAttributes redirectAttrs, BindingResult result) {
+	public String save(@Valid @ModelAttribute("insert_satellite_attr") Satellite satellite, BindingResult result, ModelMap model,
+			RedirectAttributes redirectAttrs) {
 
 		if (result.hasErrors())
 			return "satellite/insert";
@@ -98,8 +98,7 @@ public class SatelliteController {
 	}
 	
 	@PostMapping("/edit")
-	public String edit(@Valid @ModelAttribute("insert_satellite_attr") Satellite satellite, Model model, RedirectAttributes redirectAttrs
-			, BindingResult result) {
+	public String edit(@Valid @ModelAttribute("insert_satellite_attr") Satellite satellite, BindingResult result, Model model, RedirectAttributes redirectAttrs) {
 		
 		if (result.hasErrors())
 			return "satellite/formedit";
